@@ -1,0 +1,35 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+{% block title %}Cadastro{% endblock %}
+
+{% block content %}
+  <h2>Cadastro de Jogadores</h2>
+  <form action="/cadastrar" method="post" class="form-inline">
+    <input type="text" name="nome" placeholder="Nome" required>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  {% if jogadores %}
+    <h3>Jogadores</h3>
+    <table>
+      <tr><th>Nome</th><th>Time</th><th>Ordem</th><th>Ações</th></tr>
+      {% for j in jogadores %}
+        <tr>
+          <form action="/salvar/{{ j[0] }}" method="post">
+            <td><input type="text" name="nome_{{ j[0] }}" value="{{ j[1] }}"></td>
+            <td><input type="text" name="time_{{ j[0] }}" value="{{ j[2] or '' }}"></td>
+            <td><input type="number" name="ordem_{{ j[0] }}" value="{{ j[3] or '' }}" min="1" style="width: 60px;"></td>
+            <td style="white-space: nowrap;">
+              <button type="submit" class="btn-primary">Salvar</button>
+          </form>
+          <form action="/remover/{{ j[0] }}" method="post" style="display: inline;">
+              <button type="submit" class="btn-danger">Excluir</button>
+          </form>
+            </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>Nenhum jogador cadastrado ainda.</p>
+  {% endif %}
+{% endblock %}

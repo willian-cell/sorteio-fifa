@@ -1,0 +1,50 @@
+<!-- templates/chaveamento.html -->
+{% extends 'base.html' %}
+{% block title %}Chaveamento{% endblock %}
+
+{% block content %}
+  {% for fase, confrontos in fases.items() %}
+    <section class="fase-bloco">
+      <h3 class="fase-titulo">📅 {{ fase }}</h3>
+      <table class="tabela-chaveamento">
+        <thead>
+          <tr>
+            <th>🏠 Casa</th>
+            <th></th>
+            <th>🏟️ Visitante</th>
+            <th>✅ Vencedor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in confrontos %}
+            <tr>
+              <td>{{ c.jogador_casa }}</td>
+              <td class="versus">vs</td>
+              <td>{{ c.jogador_visitante }}</td>
+              <td>
+                {% if not c.vencedor %}
+                  <form action="/vencedor/{{ c.id }}" method="post" class="form-vencedor">
+                    <select name="vencedor" required>
+                      <option value="">Escolha</option>
+                      <option value="{{ c.jogador_casa }}">{{ c.jogador_casa }}</option>
+                      <option value="{{ c.jogador_visitante }}">{{ c.jogador_visitante }}</option>
+                    </select>
+                    <button type="submit" class="btn-salvar">OK</button>
+                  </form>
+                {% else %}
+                  <span class="badge-vencedor">{{ c.vencedor }}</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endfor %}
+
+  {% if campeao %}
+    <div class="campeao-bloco">
+      <h2 class="campeao">🏅 Campeão: <span>{{ campeao }}</span></h2>
+    </div>
+  {% endif %}
+{% endblock %}

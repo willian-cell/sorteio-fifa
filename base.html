@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Torneio{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <button class="dark-toggle" onclick="document.body.classList.toggle('dark')">🌙</button>
+  <div class="navbar">
+    <div class="logo">🏆 Torneio FIFA</div>
+    <div class="nav">
+      <a href="/">Início</a>
+      <a href="/sortear_ordem">Sortear Ordem</a>
+      <a href="/sortear_times">Sortear Times</a>
+      <a href="/gerar_confrontos">Gerar Confrontos</a>
+      <a href="/reset">🔁 Resetar</a>
+    </div>
+  </div>
+  <div class="container">
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 Sorteio FIFA | Desenvolvido por Willian Batista Oliveira</p>
+  </footer>
+  
+  
+</body>
+</html>

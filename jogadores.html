@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Jogadores{% endblock %}
+{% block content %}
+  <h2>📋 Jogadores Cadastrados</h2>
+
+  {% if jogadores %}
+  <table>
+    <thead>
+      <tr><th>Nome</th><th>Time</th><th>Ordem</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+      {% for j in jogadores %}
+      <tr>
+        <td>{{ j[1] }}</td>
+        <td>{{ j[2] or '-' }}</td>
+        <td>{{ j[3] or '-' }}</td>
+        <td>
+          <a href="/remover/{{ j[0] }}" class="btn-danger">Excluir</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p class="muted">Nenhum jogador cadastrado.</p>
+  {% endif %}
+{% endblock %}
